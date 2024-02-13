@@ -4,17 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StarSky Productions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
     <nav class="navbar">
-        <a href="#about">About</a>
-        <a href="#my-work">My Work</a>
-        <a href="#contact">Contact</a>
+        <img src="logo.png" alt="StarSky Productions Logo" class="logo">
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#my-work">My Work</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <label class="switch">
+            <input type="checkbox" id="mode-toggle">
+            <span class="slider round"></span>
+        </label>
     </nav>
 
-    <!-- The rest of your page content goes here -->
+    <header class="hero">
+        <h1>StarSky Productions</h1>
+    </header>
 
+    <main>
+        <!-- Content sections will go here -->
+    </main>
+
+    <footer class="navigation">
+        <div class="icon-container">
+            <a href="#code" class="icon">
+                <img src="code-icon.png" alt="Code"> <!-- Replace with your icon path -->
+                <span>Code</span>
+            </a>
+            <a href="#web" class="icon">
+                <img src="web-icon.png" alt="Web"> <!-- Replace with your icon path -->
+                <span>Web</span>
+            </a>
+            <a href="#graphics" class="icon">
+                <img src="graphics-icon.png" alt="Graphics"> <!-- Replace with your icon path -->
+                <span>Graphics</span>
+            </a>
+            <a href="#pc-shop" class="icon">
+                <img src="pc-shop-icon.png" alt="PC Shop"> <!-- Replace with your icon path -->
+                <span>PC Shop</span>
+            </a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
+

@@ -1,27 +1,42 @@
+/* styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700&display=swap');
+
 body, html {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
-    font-family: Arial, sans-serif;
+    font-family: 'Exo 2', sans-serif;
+    background-image: url('background.png'); /* Replace with your background image path */
+    background-size: cover;
+    background-attachment: fixed;
 }
 
+/* Light frosted glass effect for the navbar */
 .navbar {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.7); /* Translucent background */
-    backdrop-filter: blur(10px); /* Frosted glass effect */
+    padding: 10px 50px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Glowing edges */
     z-index: 1000;
 }
+
+    /* Adjustments for the logo and navigation text */
+    .navbar img {
+        height: 60px; /* Or your desired size */
+    }
 
     .navbar a {
         text-decoration: none;
         color: #000;
-        font-weight: bold;
+        font-weight: 700; /* Exo 2 Bold */
         margin: 0 15px;
     }
 
@@ -29,8 +44,156 @@ body, html {
             color: #555;
         }
 
+
+
+/* Main title with a subtle glow effect */
+.hero h1 {
+    font-size: 5em; /* Adjusted font size */
+    color: white;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8); /* Subtle glow */
+}
+
+/* Dark frosted glass effect for the footer */
+.navigation {
+    display: flex;
+    justify-content: space-around;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 20px 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 -8px 32px 0 rgba(0, 0, 0, 0.37); /* Glowing edges */
+}
+
+.icon-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+}
+
+    .icon img {
+        height: 40px; /* Adjusted icon size */
+        margin-bottom: 5px;
+    }
+
+    .icon span {
+        color: white;
+        font-size: 0.9em;
+        font-weight: 400; /* Exo 2 Regular */
+    }
+
+
+
+/* Responsive adjustments for smaller screens */
 @media screen and (max-width: 768px) {
     .navbar {
         flex-direction: column;
+        padding: 20px;
+        align-items: center;
     }
+
+        .navbar img {
+            margin-bottom: 20px; /* Space between logo and menu items */
+        }
+
+        .navbar a {
+            margin: 10px 0; /* Space between menu items */
+        }
+
+    .hero h1 {
+        font-size: 2.5em; /* Smaller font size for smaller screens */
+    }
+
+    .navigation {
+        flex-direction: column;
+        padding: 20px;
+        align-items: center;
+    }
+
+    .icon-container {
+        flex-direction: row;
+        justify-content: space-around;
+        max-width: 500px; /* Adjust based on your design preference */
+        margin: 0 auto; /* Centering icons */
+    }
+
+    .icon {
+        margin: 0 10px; /* Space between icons */
+    }
+
+        .icon img {
+            height: 30px; /* Smaller icons for smaller screens */
+        }
+}
+
+/* Toggle Switch Styling */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+    }
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Day and Night Mode Styling */
+body.night-mode .navbar,
+body.night-mode .navigation {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(15px);
+}
+
+body.day-mode .navbar,
+body.day-mode .navigation {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px);
 }
