@@ -12,25 +12,11 @@
     --switch-height: 2em;
     --slider-diameter: 1.5em;
     --navbar-top-padding: 0.5em;
-    --box-shadow-edges: 0 -8px 32px 0 rgba(0, 0, 0, 0.37);
-    --box-border-edge: 1px solid rgba(255, 255, 255, 0.2);
+    --box-shadow-edges: 0 -0.5em 2em 0 rgba(0, 0, 0, 0.37);
+    --box-border-edge: 0.0625em solid rgba(255, 255, 255, 0.2);
 }
 
-/* NIGHT STYLE */
-body.night-mode .navbar,
-body.night-mode .navigation {
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(15px);
-}
-
-
-/* DAY STYLE */
-body.day-mode .navbar,
-body.day-mode .navigation {
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(15px);
-}
-
+/* Global Styles */
 body, html {
     margin: 0;
     padding: 0;
@@ -41,7 +27,32 @@ body, html {
     background-size: cover;
     background-attachment: fixed;
 }
-/* TOP PART OF THE NAVBAR */
+
+    /* Theme Styles */
+    body.night-mode .navbar,
+    body.night-mode .navigation,
+    body.day-mode .navbar,
+    body.day-mode .navigation {
+        backdrop-filter: blur(1.5em);
+    }
+
+    body.night-mode .navbar, body.night-mode .navigation {
+        background: rgba(0, 0, 0, 0.7);
+    }
+
+    body.day-mode .navbar, body.day-mode .navigation {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+/* NAVBAR Section */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
 .navbar-top {
     display: flex;
     justify-content: space-between;
@@ -55,40 +66,28 @@ body, html {
     height: var(--logo-height);
 }
 
-/* Navigation and icon links styling */
 .navbar a, .icon {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40%; /* Percentage of the navbar's width */
-    height: 3em; /* Responsive height based on font size */
-    margin: 0 10px; /* Space between items */
+    width: 40%;
+    height: 3em;
+    margin: 0 0.625em;
     transition: all 0.3s ease;
-    border-radius: 5px; /* Rounded corners */
+    border-radius: 0.3125em;
     box-sizing: border-box;
 }
 
-    /* Active/Pressed state styling */
     .navbar a:active, .icon:active {
-        box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
-        transform: translateY(1px);
+        box-shadow: inset 0 0.125em 0.25em rgba(0,0,0,0.2);
+        transform: translateY(0.0625em);
     }
 
-/* Flex container for equal distribution */
 .nav-links, .icon-container {
     display: flex;
     justify-content: space-around;
 }
 
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000; /* Ensure navbar stays on top of other content */
-}
-
-/* BOTTOM PART OF THE NAVBAR */
 .navbar-bottom {
     display: flex;
     justify-content: space-around;
@@ -107,18 +106,16 @@ body, html {
     padding: 0.5em 1em;
 }
 
-
 .nav-icon {
     height: var(--nav-icon-size);
     margin-right: 0.5em;
 }
 
-/* SWITCH OFF STYLE (DAY) */
 .switch {
     position: relative;
+    display: inline-block;
     width: var(--switch-width);
     height: var(--switch-height);
-    display: inline-block;
 }
 
     .switch input {
@@ -136,7 +133,7 @@ body, html {
     bottom: 0;
     background-color: #ccc;
     transition: .4s;
-    border-radius: var(--switch-height);
+    border-radius: calc(var(--switch-height) / 2);
 }
 
     .slider:before {
@@ -155,78 +152,30 @@ input:checked + .slider {
     background-color: #2196F3;
 }
 
-input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-    transform: translateX(var(--switch-width) - var(--slider-diameter) - 0.5em);
-}
-
-/* SWITCH ON STYLE (NIGHT)*/
-.switch {
-    width: 60px;
-    height: 34px;
-}
-
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: .4s;
-    border-radius: 34px;
-}
-
-    .slider:before {
-        position: absolute;
-        content: "";
-        height: 26px;
-        width: 26px;
-        left: 4px;
-        bottom: 4px;
-        background-color: white;
-        transition: .4s;
-        border-radius: 50%;
+    input:focus + .slider, input:checked + .slider:before {
+        box-shadow: 0 0 0.0625em #2196F3;
     }
 
-input:checked + .slider {
-    background-color: #2196F3;
-}
+    input:checked + .slider:before {
+        transform: translateX(calc(var(--switch-width) - var(--slider-diameter) - 0.5em));
+    }
 
-input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-    transform: translateX(26px);
-}
-
-/* Main title with a subtle glow effect */
 .hero h1 {
-    font-size: 5em; /* Adjusted font size */
+    font-size: 5em;
     color: white;
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8); /* Subtle glow */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Adjust height as needed */
+    text-shadow: 0 0 0.5em rgba(255, 255, 255, 0.8);
     text-align: center;
-
 }
 
-/*  footer */
+/* FOOTBAR Section */
 .navigation {
     display: flex;
     justify-content: space-around;
     position: fixed;
     bottom: 0;
     width: 100%;
-    padding: 20px 0;
-    border-bottom: var(--box-border-edge);
+    padding: 1.25em 0;
+    border-top: var(--box-border-edge);
     box-shadow: var(--box-shadow-edges);
 }
 
@@ -237,61 +186,42 @@ input:checked + .slider:before {
     width: 100%;
 }
 
-/* Assuming .icon class is used for the anchor tags wrapping the icons and text */
 .icon {
     display: flex;
-    flex-direction: column; /* Align children vertically */
-    align-items: center; /* Center children horizontally */
-    justify-content: center; /* Center children vertically if there's extra space */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
-    color: white; /* Assuming you want white text */
+    color: white;
     font-size: 1.4em;
 }
 
     .icon img {
         height: 1.4em;
-        margin: 2px 0; /* Adds space above and below the icon */
+        margin: 0.125em 0;
     }
 
-/* Responsive adjustments for smaller screens */
+/* Responsive Design Adjustments */
 @media screen and (max-width: 768px) {
     .navbar-top, .navbar-bottom {
         flex-direction: column;
         align-items: center;
     }
 
-    .nav-item {
-        font-size: 0.8em; /* Smaller font size for mobile */
-        padding: 0.3em 0.6em; /* Smaller padding for mobile */
-    }
-
-    .nav-icon {
-        height: 0.8em; /* Smaller icons for mobile */
-    }
-
-    .hero h1 {
-        font-size: 2.5em; /* Smaller font size for smaller screens */
-    }
-
-    .navigation {
-        flex-direction: column;
-        padding: 20px;
-        align-items: center;
+    .nav-item, .nav-icon, .hero h1, .icon {
+        font-size: 0.8em;
+        padding: 0.3em 0.6em;
+        height: 0.8em;
     }
 
     .icon-container {
         flex-direction: row;
         justify-content: space-around;
-        max-width: 500px; /* Adjust based on your design preference */
-        margin: 0 auto; /* Centering icons */
+        max-width: 31.25em;
+        margin: 0 auto;
     }
 
-    .icon {
-        font-size: 0.9em;
-        margin: 0 10px; /* Space between icons */
+    .icon img {
+        height: 1.6em;
     }
-
-        .icon img {
-            height: 1.6em; /* Smaller icons for smaller screens */
-        }
 }
