@@ -13,34 +13,32 @@ body, html {
 }
 
 /*  navbar */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    padding: 10px 50px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); /* Glowing edges */
-    z-index: 1000;
+.navbar .logo {
+    /* Adjust if necessary */
+    height: 8em;
 }
 
-    /* Adjustments for the logo and navigation text */
-    .navbar img {
-        height: 60px; /* Or your desired size */
-    }
+.nav-links {
+    display: flex;
+    align-items: center;
+    /* Add any other styles if necessary */
+}
 
-    .navbar a {
-        text-decoration: none;
-        color: #000;
-        font-weight: 700; /* Exo 2 Bold */
-        margin: 0 15px;
-    }
+.nav-item {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #fff; /* Change color as needed */
+    font-weight: bold; /* Bold font */
+    font-size: 1.6em;
+    margin: 0 15px;
+}
 
-        .navbar a:hover {
-            color: #555;
-        }
+.nav-icon {
+    /* Adjust size as necessary */
+    height: 1.6em;
+    margin-right: 0.3em; /* Space between icon and text */
+}
 
 
 
@@ -77,30 +75,26 @@ body, html {
     width: 100%;
 }
 
+/* Assuming .icon class is used for the anchor tags wrapping the icons and text */
 .icon {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: column; /* Align children vertically */
+    align-items: center; /* Center children horizontally */
+    justify-content: center; /* Center children vertically if there's extra space */
     text-decoration: none;
+    color: white; /* Assuming you want white text */
+    font-size: 1.4em;
 }
 
     .icon img {
-        height: 40px; /* Adjusted icon size */
-        margin-bottom: 5px;
+        height: 1.4em;
+        margin: 2px 0; /* Adds space above and below the icon */
     }
-
-    .icon span {
-        color: white;
-        font-size: 0.9em;
-        font-weight: 400; /* Exo 2 Regular */
-    }
-
-
 
 /* Responsive adjustments for smaller screens */
 @media screen and (max-width: 768px) {
     .navbar {
-        flex-direction: column;
+        flex-direction: row;
         padding: 20px;
         align-items: center;
     }
@@ -131,11 +125,12 @@ body, html {
     }
 
     .icon {
+        font-size: 0.9em;
         margin: 0 10px; /* Space between icons */
     }
 
         .icon img {
-            height: 30px; /* Smaller icons for smaller screens */
+            height: 1.6em; /* Smaller icons for smaller screens */
         }
 }
 
@@ -228,17 +223,3 @@ body.day-mode .navigation {
     display: flex;
     justify-content: space-around;
 }
-
-/* Responsive adjustments for smaller screens */
-@media screen and (max-width: 768px) {
-    .navbar a, .icon {
-        width: 5em; /* Adjust width for smaller screens */
-        height: 4em; /* Adjust height for smaller screens */
-        margin: 0 10px; /* Adjust space for smaller screens */
-    }
-
-    .nav-links, .icon-container {
-        flex-wrap: wrap;
-    }
-}
-
