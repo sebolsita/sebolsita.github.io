@@ -104,6 +104,9 @@ body, html {
     font-size: var(--nav-item-font-size);
     margin: 0 var(--nav-item-spacing);
     padding: 0.5em 1em;
+    /*background: var(--background-glass-color);*/ /* Frosted glass effect */
+    /*backdrop-filter: var(--frosted-glass-effect);
+    transition: background-color 0.3s, box-shadow 0.3s;*/
 }
 
 .nav-icon {
@@ -160,11 +163,39 @@ input:checked + .slider {
         transform: translateX(calc(var(--switch-width) - var(--slider-diameter) - 0.5em));
     }
 
-.hero h1 {
-    font-size: 5em;
-    color: white;
-    text-shadow: 0 0 0.5em rgba(255, 255, 255, 0.8);
-    text-align: center;
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    position: relative;
+    z-index: 2; /* Below the navbar but above the background */
+}
+
+    .hero h1 {
+        transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+        position: fixed;
+        width: 100%;
+        text-align: center;
+        z-index: -1; /* Behind navbar */
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 1;
+        font-size: 5em; /* Example font size, adjust as needed */
+        color: white; /* Example text color, adjust as needed */
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Glow effect */
+    }
+/* Styling for the new navbar title */
+.navbar-title {
+    display: none; /* Initially hidden */
+    position: fixed;
+    top: 50%; /* Adjust as needed */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999; /* High z-index but below the navbar */
+    font-size: 2em; /* Adjust as needed */
+    color: white; /* Or any color as per your design */
 }
 
 /* FOOTBAR Section */
@@ -224,4 +255,57 @@ input:checked + .slider {
     .icon img {
         height: 1.6em;
     }
+}
+
+.my-work {
+    display: flex;
+    flex-direction: column;
+    margin: 2em auto;
+    max-width: 1024px; /* Adjust as needed */
+}
+
+.work-item {
+    background: var(--background-glass-color);
+    backdrop-filter: var(--frosted-glass-effect);
+    border-radius: 1em; /* Adjust as needed */
+    overflow: hidden;
+    margin-bottom: 1em; /* Space between items */
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    transition: transform 0.3s ease;
+}
+
+    .work-item:hover {
+        transform: translateY(-0.25em); /* Slight lift effect on hover */
+    }
+
+    .work-item img {
+        max-width: 30%; /* Adjust image width as needed */
+        height: auto; /* Maintain aspect ratio */
+    }
+
+.work-info {
+    padding: 1em;
+}
+
+    .work-info h3 {
+        margin: 0;
+        font-size: 1.5em; /* Adjust title font size as needed */
+        color: #fff; /* Title color */
+    }
+
+    .work-info p {
+        margin-top: 0.5em;
+        font-size: 1em; /* Adjust text font size as needed */
+        color: #fff; /* Text color */
+    }
+
+/* Active state for nav item */
+.nav-item.active {
+    background: rgba(0, 0, 0, 0.1); /* Slightly darker frosted effect */
+    box-shadow: inset 0 0.125em 0.25em rgba(0,0,0,0.3); /* Pressed effect */
+    pointer-events: none; /* Disable further clicks */
 }
