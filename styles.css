@@ -2,7 +2,7 @@
 
 :root {
     --background-glass-color: rgba(255, 255, 255, 0.6);
-    --frosted-glass-effect: blur(0.2em);
+    --frosted-glass-effect: blur(0.5em);
     --navbar-margin: 1em;
     --logo-height: 6em; /* Adjust as needed */
     --nav-icon-size: 1.4em; /* Adjust as needed */
@@ -14,6 +14,16 @@
     --navbar-top-padding: 0.5em;
     --box-shadow-edges: 0 -0.5em 2em 0 rgba(0, 0, 0, 0.37);
     --box-border-edge: 0.0625em solid rgba(255, 255, 255, 0.2);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 /* Global Styles */
@@ -32,12 +42,12 @@ body, html {
     body.night-mode .navbar,
     body.night-mode .navigation,
     body.day-mode .navbar,
-    body.day-mode .navigation {
-        backdrop-filter: blur(1.5em);
+    body.day-mode .navigation .about-container {
+        backdrop-filter: var(--frosted-glass-effect);
     }
 
     body.night-mode .navbar, body.night-mode .navigation {
-        background: rgba(0, 0, 0, 0.7);
+        background: rgba(22, 22, 22, 0.6);
     }
 
     body.day-mode .navbar, body.day-mode .navigation {
@@ -45,6 +55,7 @@ body, html {
     }
 
 /* NAVBAR Section */
+/* NAVBAR top part */
 .navbar {
     position: fixed;
     top: 0;
@@ -78,16 +89,39 @@ body, html {
     box-sizing: border-box;
 }
 
-    .navbar a:active, .icon:active {
-        box-shadow: inset 0 0.125em 0.25em rgba(0,0,0,0.2);
-        transform: translateY(0.0625em);
-    }
+
 
 .nav-links, .icon-container {
     display: flex;
     justify-content: space-around;
 }
+/* Styling for the new navbar title */
+.navbar-title {
+    display: none; /* Initially hidden */
+    text-align: center; /* Center the text inside the flex container */
+    position: fixed;
+    top: 50%; /* Adjust as needed */
+    left: 50%;
+    transform: translate(-50%, -110%);
+    z-index: 999; /* High z-index but below the navbar */
+    color: white; /* Or any color as per your design */
+    opacity: 0;
+    animation: fadeIn 2s ease forwards; /* Adjust duration (2s) as needed */
+}
 
+.title-main {
+    font-size: 4em; /* Larger font size for the main title */
+}
+
+.title-sub {
+    font-size: 1em; /* Smaller font size for the subtitle */
+}
+
+/* When these elements are active or in a visible state, set opacity to 1 */
+.visible {
+    opacity: 1; /* Fully visible */
+}
+/* NAVBAR bottom part */
 .navbar-bottom {
     display: flex;
     justify-content: space-around;
@@ -104,15 +138,19 @@ body, html {
     font-size: var(--nav-item-font-size);
     margin: 0 var(--nav-item-spacing);
     padding: 0.5em 1em;
-    /*background: var(--background-glass-color);*/ /* Frosted glass effect */
-    /*backdrop-filter: var(--frosted-glass-effect);
-    transition: background-color 0.3s, box-shadow 0.3s;*/
 }
 
 .nav-icon {
     height: var(--nav-icon-size);
     margin-right: 0.5em;
 }
+/* Nightmode switch */
+
+/*.navbar a:active, .icon:active {
+    box-shadow: inset 0 0.125em 0.25em rgba(0,0,0,0.2);
+    transform: translateY(0.0625em);
+}*/
+
 
 .switch {
     position: relative;
@@ -162,7 +200,7 @@ input:checked + .slider {
     input:checked + .slider:before {
         transform: translateX(calc(var(--switch-width) - var(--slider-diameter) - 0.5em));
     }
-
+/* Title main Section */
 .hero {
     display: flex;
     justify-content: center;
@@ -174,29 +212,28 @@ input:checked + .slider {
 
     .hero h1 {
         transition: transform 0.5s ease-out, opacity 0.5s ease-out;
-        position: fixed;
+/*        position: fixed;*/
         width: 100%;
         text-align: center;
         z-index: -1; /* Behind navbar */
         left: 50%;
         top: 50%;
-        transform: translate(-50%, -50%);
-        opacity: 1;
-        font-size: 5em; /* Example font size, adjust as needed */
-        color: white; /* Example text color, adjust as needed */
+        opacity: 0;
+        animation: fadeIn 3s ease forwards; /* Adjust duration (2s) as needed */
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Glow effect */
     }
-/* Styling for the new navbar title */
-.navbar-title {
-    display: none; /* Initially hidden */
-    position: fixed;
-    top: 50%; /* Adjust as needed */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 999; /* High z-index but below the navbar */
-    font-size: 2em; /* Adjust as needed */
-    color: white; /* Or any color as per your design */
+
+.hero-main {
+    font-size: 4em; /* Adjust size as needed */
+    color: white; /* Adjust color as needed */
 }
+
+.hero-sub {
+    font-size: 1.5em; /* Adjust size as needed */
+    color: white; /* Adjust color as needed */
+    text-decoration: underline; /* Underline 'Productions' */
+}
+
 
 /* FOOTBAR Section */
 .navigation {
@@ -208,6 +245,7 @@ input:checked + .slider {
     padding: 1.25em 0;
     border-top: var(--box-border-edge);
     box-shadow: var(--box-shadow-edges);
+    backdrop-filter: var(--frosted-glass-effect);
 }
 
 .icon-container {
@@ -232,80 +270,104 @@ input:checked + .slider {
         margin: 0.125em 0;
     }
 
-/* Responsive Design Adjustments */
-@media screen and (max-width: 768px) {
-    .navbar-top, .navbar-bottom {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .nav-item, .nav-icon, .hero h1, .icon {
-        font-size: 0.8em;
-        padding: 0.3em 0.6em;
-        height: 0.8em;
-    }
-
-    .icon-container {
-        flex-direction: row;
-        justify-content: space-around;
-        max-width: 31.25em;
-        margin: 0 auto;
-    }
-
-    .icon img {
-        height: 1.6em;
-    }
-}
-
-.my-work {
+/* Common styles for work and content sections */
+.section, .content-section, .full-screen-section {
     display: flex;
     flex-direction: column;
     margin: 2em auto;
-    max-width: 1024px; /* Adjust as needed */
+    padding: 0 2em; /* Apply horizontal padding */
+    max-width: 1024px;
+    transition: transform 0.5s ease-out;
 }
 
+.my-work {
+    max-width: 1024px;
+    margin: auto; /* Center the container */
+}
+/* Styles specific to work items */
 .work-item {
     background: var(--background-glass-color);
     backdrop-filter: var(--frosted-glass-effect);
-    border-radius: 1em; /* Adjust as needed */
+    border-radius: 1em;
     overflow: hidden;
-    margin-bottom: 1em; /* Space between items */
+    margin-bottom: 1em;
     display: flex;
     align-items: center;
     text-decoration: none;
     color: inherit;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-    transition: transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease; /* smooth hover */
+    border-top: var(--box-border-edge);
+    border-right: var(--box-border-edge);
 }
 
-    .work-item:hover {
-        transform: translateY(-0.25em); /* Slight lift effect on hover */
-    }
+.work-item:hover {
+    transform: translateY(-0.25em);
+}
 
-    .work-item img {
-        max-width: 30%; /* Adjust image width as needed */
-        height: auto; /* Maintain aspect ratio */
-    }
+.work-item img {
+    max-width: 30%;
+    height: auto;
+}
 
 .work-info {
     padding: 1em;
 }
 
-    .work-info h3 {
-        margin: 0;
-        font-size: 1.5em; /* Adjust title font size as needed */
-        color: #fff; /* Title color */
-    }
+.work-info h3 {
+    margin: 0;
+    font-size: 1.5em;
+    color: #fff;
+}
 
-    .work-info p {
-        margin-top: 0.5em;
-        font-size: 1em; /* Adjust text font size as needed */
-        color: #fff; /* Text color */
-    }
+.work-info p {
+    margin-top: 0.5em;
+    font-size: 1em;
+    color: #fff;
+}
 
-/* Active state for nav item */
+/* Nav item active state */
 .nav-item.active {
-    background: rgba(0, 0, 0, 0.1); /* Slightly darker frosted effect */
-    box-shadow: inset 0 0.125em 0.25em rgba(0,0,0,0.3); /* Pressed effect */
-    pointer-events: none; /* Disable further clicks */
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0.125em 0.25em rgba(0,0,0,0.3);
+    transform: translateY(0.03em);
+}
+
+.icon.active {
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0.125em 0.25em rgba(0,0,0,0.3);
+    transform: translateY(0.03em);
+}
+
+
+/* Unified container styles for about, contact, and other sections */
+.container, .about-container {
+    background: var(--background-glass-color);
+    backdrop-filter: var(--frosted-glass-effect);
+    border-radius: 1em;
+    padding: 1em;
+    overflow-y: auto;
+    border-top: var(--box-border-edge);
+    border-right: var(--box-border-edge);
+    box-shadow: var(--box-shadow-edges);
+}
+
+/* Define night mode styles for the same containers */
+body.night-mode .container,
+body.night-mode .about-container {
+    background: rgba(22, 22, 22, 0.6);
+    color: #ccc; 
+
+}
+/* Add night mode styles for .work-item */
+body.night-mode .work-item {
+    background: rgba(22, 22, 22, 0.6);
+    color: #ccc;
+}
+
+/* Styling for headings and paragraphs */
+h2, #about h2, .text-content p, .about-content p {
+    color: #fff;
+    margin-bottom: 20px;
+    text-align: center;
 }
