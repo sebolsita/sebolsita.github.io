@@ -26,6 +26,17 @@
     }
 }
 
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        visibility: visible;
+    }
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
 /* Global Styles */
 body, html {
     margin: 0;
@@ -95,32 +106,40 @@ body, html {
     display: flex;
     justify-content: space-around;
 }
-/* Styling for the new navbar title */
+
 .navbar-title {
-    display: none; /* Initially hidden */
-    text-align: center; /* Center the text inside the flex container */
+    text-align: center;
     position: fixed;
-    top: 50%; /* Adjust as needed */
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -110%);
-    z-index: 999; /* High z-index but below the navbar */
-    color: white; /* Or any color as per your design */
-    opacity: 0;
-    animation: fadeIn 2s ease forwards; /* Adjust duration (2s) as needed */
+    z-index: 999;
+    color: white;
+    opacity: 0; /* Start with 0 opacity for fade-in effect */
+    visibility: hidden; /* Start with hidden visibility to ensure it's not clickable when not visible */
+    animation: fadeIn 2s ease forwards;
 }
 
 .title-main {
-    font-size: 4em; /* Larger font size for the main title */
+    font-size: 4em;
 }
 
 .title-sub {
-    font-size: 1em; /* Smaller font size for the subtitle */
+    font-size: 1em;
 }
 
-/* When these elements are active or in a visible state, set opacity to 1 */
-.visible {
-    opacity: 1; /* Fully visible */
+/* Apply the fadeOut animation when the navbar title is not visible */
+.navbar-title:not(.visible) {
+    animation: fadeOut 1s ease forwards;
 }
+
+/* Override the animation with fadeIn when it becomes visible */
+.navbar-title.visible {
+    visibility: visible; /* Make it visible before starting the animation */
+    animation: fadeIn 2s ease forwards;
+}
+
+
 /* NAVBAR bottom part */
 .navbar-bottom {
     display: flex;
