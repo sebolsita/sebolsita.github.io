@@ -3,60 +3,62 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     const heroTitle = document.querySelector('.hero h1');
     const navbarTitle = document.querySelector('.navbar-title');
-    const allNavItems = document.querySelectorAll('.navbar .nav-item, .navigation .icon');
+    const navbarItems = document.querySelectorAll('.navbar .nav-item');
+    const footerItems = document.querySelectorAll('.navigation .icon');
     const sections = document.querySelectorAll('section');
-    let userScroll = true; // Flag to track if scrolling is user-initiated
+    let allowScrollUpdate = true; // Allow scroll updates initially
+
+    function activateNavItem(item) {
+        navbarItems.forEach(nav => nav.classList.remove('active'));
+        footerItems.forEach(footer => footer.classList.remove('active'));
+
+        const href = item.getAttribute('href');
+        const correspondingNav = document.querySelector(`.navbar .nav-item[href="${href}"]`);
+        const correspondingFooter = document.querySelector(`.navigation .icon[href="${href}"]`);
+
+        if (correspondingNav) correspondingNav.classList.add('active');
+        if (correspondingFooter) correspondingFooter.classList.add('active');
+    }
+
+    function scrollToSection(item) {
+        const targetId = item.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+            const headerOffset = 70; // Adjust to your header's actual height
+            const elementTop = window.scrollY + targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementTop - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    }
 
     modeToggle.addEventListener('change', () => {
         body.classList.toggle('night-mode', modeToggle.checked);
         body.classList.toggle('day-mode', !modeToggle.checked);
     });
 
-    allNavItems.forEach(item => {
+    [...navbarItems, ...footerItems].forEach(item => {
         item.addEventListener('click', function (e) {
             e.preventDefault();
-            userScroll = false; // User is not scrolling, clicked a nav item
+            activateNavItem(this);
+            scrollToSection(this);
+            allowScrollUpdate = false; // Disable scroll update temporarily
 
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-
-            if (targetElement) {
-                const headerOffset = 220; // Adjust based on your header's height
-                const elementTop = window.scrollY + targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementTop - headerOffset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-
-                // Immediately activate the clicked nav item
-                allNavItems.forEach(nav => nav.classList.remove('active'));
-                this.classList.add('active');
-
-                // Reactivate scrollspy after a delay to allow for smooth scrolling to finish
-                setTimeout(() => {
-                    userScroll = true;
-                }, 1000); // Delay should match the smooth scroll duration
-            }
+            // Re-enable scroll update after a delay to avoid immediate override
+            setTimeout(() => { allowScrollUpdate = true; }, 500);
         });
     });
 
     window.addEventListener('scroll', () => {
-        if (userScroll) { // Only activate scrollspy if the user has manually scrolled
-            let scrollPosition = window.scrollY + 200; // Adjust based on your header's height
+        if (allowScrollUpdate) {
+            let scrollPosition = window.scrollY + window.innerHeight / 2;
 
             sections.forEach(section => {
-                const sectionTop = section.offsetTop - 200; // Adjust based on your header's height
-                const sectionHeight = section.offsetHeight;
-
-                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                    allNavItems.forEach(navItem => {
-                        navItem.classList.remove('active');
-                        if (navItem.getAttribute('href') === `#${section.id}`) {
-                            navItem.classList.add('active');
-                        }
-                    });
+                if (section.offsetTop <= scrollPosition && section.offsetTop + section.offsetHeight > scrollPosition) {
+                    activateNavItem(document.querySelector(`.navbar .nav-item[href="#${section.id}"]`));
                 }
             });
         }
@@ -67,9 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
             navbarTitle.classList.remove('visible');
         }
     });
-
-    // Reset userScroll to true on user-initiated scroll
-    window.addEventListener('wheel', () => { userScroll = true; });
-    window.addEventListener('touchmove', () => { userScroll = true; });
 });
+
 
