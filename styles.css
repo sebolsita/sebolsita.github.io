@@ -64,7 +64,13 @@ body, html {
     body.day-mode .navbar, body.day-mode .navigation {
         background: rgba(255, 255, 255, 0.3);
     }
+html {
+    scroll-behavior: smooth;
+}
 
+body {
+    scroll-padding-top: 1px; /* Adjust this value to match the height of your fixed header */
+}
 /* NAVBAR Section */
 /* NAVBAR top part */
 .navbar {
@@ -302,6 +308,7 @@ input:checked + .slider {
 .my-work {
     max-width: 1024px;
     margin: auto; /* Center the container */
+    margin-bottom: 10em;
 }
 /* Styles specific to work items */
 .work-item {
@@ -369,6 +376,7 @@ input:checked + .slider {
     border-top: var(--box-border-edge);
     border-right: var(--box-border-edge);
     box-shadow: var(--box-shadow-edges);
+    margin-bottom: 8em;
 }
 
 /* Define night mode styles for the same containers */
