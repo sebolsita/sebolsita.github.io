@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetId = item.getAttribute('href');
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
-            const headerOffset = 70; // Adjust to your header's actual height
+            const headerOffset = 240; // Adjust to your header's actual height
             const elementTop = window.scrollY + targetElement.getBoundingClientRect().top;
             const offsetPosition = elementTop - headerOffset;
 
