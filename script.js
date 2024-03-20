@@ -69,6 +69,45 @@ document.addEventListener('DOMContentLoaded', () => {
             navbarTitle.classList.remove('visible');
         }
     });
+    const allSections = document.querySelectorAll('.content-section');
+    const allPanels = {
+        '#code': document.querySelector('#code-panel'),
+        '#web': document.querySelector('#web-panel'),
+        '#graphics': document.querySelector('#graphics-panel'),
+        '#pc-shop': document.querySelector('#pc-shop-panel'),
+        '#mobile-technology': document.querySelector('#mobile-technology-panel') // Add the mobile technology panel
+    };
+    const heroHeader = document.querySelector('.hero');
+    const workItems = document.querySelectorAll('.my-work .work-item');
+
+    function handleHashChange() {
+        const hash = window.location.hash;
+
+        // Hide all sections and the hero header initially
+        allSections.forEach(section => section.style.display = 'none');
+        heroHeader.style.display = 'none';
+        workItems.forEach(item => item.style.display = 'none');
+
+        if (allPanels[hash]) {
+            // Show the panel corresponding to the hash
+            allPanels[hash].style.display = 'block';
+        } else {
+            // If hash does not correspond to any panel, show the default sections
+            allSections.forEach(section => {
+                if (!Object.values(allPanels).includes(section)) {
+                    section.style.display = 'block';
+                }
+            });
+            heroHeader.style.display = 'block';
+            workItems.forEach(item => item.style.display = 'block');
+        }
+    }
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+
+    // Also check the hash when the page loads
+    handleHashChange();
 });
 
 
